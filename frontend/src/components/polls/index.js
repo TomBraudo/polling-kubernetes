@@ -1,0 +1,3 @@
+// Polls-specific components placeholder
+
+
