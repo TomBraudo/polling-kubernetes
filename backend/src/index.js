@@ -1,4 +1,4 @@
-// Entry point placeholder for backend service
-console.log("Backend service placeholder running. Implement Express or similar here.");
+import { createApp } from "./app.js";
 
-
+const app = createApp({ port: 3000 });
+app.start();
