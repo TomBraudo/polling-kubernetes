@@ -3,8 +3,8 @@
 // In Kubernetes, nginx proxies /api/ to backend-service:3000
 // In development, use the VITE_API_URL or default to localhost
 const getApiBaseUrl = (): string => {
-  // Check for runtime config (for Kubernetes)
-  if (typeof window !== 'undefined' && (window as any).APP_CONFIG?.API_URL) {
+  // Check for runtime config (for Kubernetes) - read dynamically each time
+  if (typeof window !== 'undefined' && (window as any).APP_CONFIG?.API_URL !== undefined) {
     const url = (window as any).APP_CONFIG.API_URL;
     // If empty, use relative paths (proxied by nginx)
     return url || '';
@@ -12,8 +12,6 @@ const getApiBaseUrl = (): string => {
   // Fall back to Vite env variable (for development)
   return import.meta.env.VITE_API_URL || "http://localhost:3000";
 };
-
-const API_BASE_URL = getApiBaseUrl();
 
 export interface User {
   id: number;
@@ -46,7 +44,8 @@ export interface UserVoteStatus {
 }
 
 async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  const apiBaseUrl = getApiBaseUrl();
+  const response = await fetch(`${apiBaseUrl}${endpoint}`, {
     headers: {
       "Content-Type": "application/json",
       ...options?.headers,
