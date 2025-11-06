@@ -1,4 +1,3 @@
-// API layer placeholder
-// Expose route handlers/controllers from here in the future
+export * from "./polls.js";
 
 

@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "node --test"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1"
   }
 }
 
