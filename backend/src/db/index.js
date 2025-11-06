@@ -1,4 +1,5 @@
-// DB/data access layer placeholder
-// Implement repository or ORM integration here
+// DB/data access layer
+export * from "./pollRepository.js";
+export * from "./voteRepository.js";
 
 

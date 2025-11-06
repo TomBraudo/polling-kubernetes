@@ -1,4 +1,6 @@
-// Service layer placeholder
-// Coordinate between API, business logic, and DB access
+// Service layer exports
+export * from "./userService.js";
+export * from "./pollService.js";
+export * from "./voteService.js";
 
 
