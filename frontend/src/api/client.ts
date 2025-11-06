@@ -1,6 +1,19 @@
 // API client for backend communication
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+// In Kubernetes, nginx proxies /api/ to backend-service:3000
+// In development, use the VITE_API_URL or default to localhost
+const getApiBaseUrl = (): string => {
+  // Check for runtime config (for Kubernetes)
+  if (typeof window !== 'undefined' && (window as any).APP_CONFIG?.API_URL) {
+    const url = (window as any).APP_CONFIG.API_URL;
+    // If empty, use relative paths (proxied by nginx)
+    return url || '';
+  }
+  // Fall back to Vite env variable (for development)
+  return import.meta.env.VITE_API_URL || "http://localhost:3000";
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 export interface User {
   id: number;
